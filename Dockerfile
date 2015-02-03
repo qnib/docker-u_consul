@@ -8,6 +8,7 @@ RUN apt-get install -y wget curl git-core vim-common
 
 ## Install supervisor to herd the processes
 RUN apt-get install -y supervisor
+RUN mkdir -p /var/log/supervisor
 # Keep the daemon in the foreground
 RUN sed -i '/logfile=.*/ i\nodaemon=true'  /etc/supervisor/supervisord.conf
 
@@ -23,4 +24,4 @@ ADD etc/supervisor/conf.d/consul.conf /etc/supervisor/conf.d/consul.conf
 ADD opt/qnib/bin /opt/qnib/bin
 ADD etc/consul.json /etc/consul.json
 
-CMD /bin/supervisord -c /etc/supervisord.conf
+CMD /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
